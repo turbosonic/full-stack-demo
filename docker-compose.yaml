@@ -1,0 +1,71 @@
+version: '2'
+
+services:
+
+    elk:
+        image: sebp/elk
+        ports: 
+            - 5601:5601
+        networks:
+            - turbosonic_net
+
+    posts:
+        image: clue/json-server
+        volumes:
+            - ./posts.db.json:/data/db.json
+        networks:
+            - turbosonic_net
+
+    comments:
+        image: clue/json-server
+        volumes:
+            - ./comments.db.json:/data/db.json
+        networks:
+            - turbosonic_net
+    
+    profiles:
+        image: clue/json-server
+        volumes:
+            - ./profiles.db.json:/data/db.json
+        networks:
+            - turbosonic_net
+    
+    news:
+        image: clue/json-server
+        volumes:
+            - ./news.db.json:/data/db.json
+        networks:
+            - turbosonic_net
+    
+    notifications:
+        image: clue/json-server
+        volumes:
+            - ./notifications.db.json:/data/db.json
+        networks:
+            - turbosonic_net
+    
+    search:
+        image: clue/json-server
+        volumes:
+            - ./search.db.json:/data/db.json
+        networks:
+            - turbosonic_net
+
+    gateway:
+        image: turbosonic/api-gateway:beta
+        ports: 
+            - 8080:8080
+        volumes:
+            - ./gateway.config.yaml:/config.yaml
+        depends_on:
+            - elk
+        environment:
+          LOGGING_ELASTIC_URL: http://elk:9200
+        networks:
+            - turbosonic_net
+
+
+
+
+networks:
+  turbosonic_net:

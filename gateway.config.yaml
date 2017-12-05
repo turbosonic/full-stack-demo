@@ -1,0 +1,59 @@
+name: "/web/v1"
+endpoints:
+  - url: /posts
+    methods:
+      - method: GET
+        destination:
+          name: health
+          host: http://posts
+          url: /posts
+  - url: /posts/:id
+    methods:
+      - method: GET
+        destination:
+          name: health
+          host: http://posts
+          url: /posts/:id
+  - url: /comments
+    methods:
+      - method: GET
+        destination:
+          name: get comments
+          host: http://comments
+          url: /comments
+      - method: POST
+        destination:
+          name: add comment
+          host: http://comments
+          url: /comments
+  - url: /profiles
+    methods:
+      - method: GET
+        destination:
+          name: health
+          host: http://profiles
+          url: /profiles
+  - url: /news
+    methods:
+      - method: GET
+        destination:
+          name: health
+          host: http://news
+          url: /news
+  - url: /notifications
+    methods:
+      - method: GET
+        destination:
+          name: health
+          host: http://notifications
+          url: /notifications
+  - url: /search
+    methods:
+      - method: GET
+        destination:
+          name: health
+          host: http://search
+          url: /search
+
+
+
