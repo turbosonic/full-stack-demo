@@ -2,13 +2,6 @@ version: '2'
 
 services:
 
-    elk:
-        image: sebp/elk
-        ports: 
-            - 5601:5601
-        networks:
-            - turbosonic_net
-
     posts:
         image: clue/json-server
         volumes:
@@ -52,15 +45,13 @@ services:
             - turbosonic_net
 
     gateway:
-        image: turbosonic/api-gateway:beta
+        image: turbosonic/api-gateway
         ports: 
-            - 8080:8080
+            - 80:80
         volumes:
-            - ./gateway.config.yaml:/config.yaml
-        depends_on:
-            - elk
+            - ./gateway.config.yaml:/data/config.yaml
         environment:
-          LOGGING_ELASTIC_URL: http://elk:9200
+          AUTHENTICATION_PROVIDER: none
         networks:
             - turbosonic_net
 
